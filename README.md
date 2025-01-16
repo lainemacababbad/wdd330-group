@@ -3,6 +3,7 @@
 ## Description
 
 Use this as a starting point to complete the WDD 330 team activity: the SleepOutside web application. It scaffolds out a simple web app with Vite support to bundle up our assets.
+Netlify: https://67896b3286d8c40672ab46a7--monumental-lokum-8e894b.netlify.app/
 
 ## Prerequisites
 
