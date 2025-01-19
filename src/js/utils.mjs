@@ -8,7 +8,8 @@ export function qs(selector, parent = document) {
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   const data = JSON.parse(localStorage.getItem(key));
-  return Array.isArray(data) ? data : [];
+  return Array.isArray(data) ? data : []; // return value will always be an array
+  // irt defaults to an empty array if data is null or is not an array
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
