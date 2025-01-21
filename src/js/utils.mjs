@@ -8,7 +8,7 @@ export function qs(selector, parent = document) {
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   const data = JSON.parse(localStorage.getItem(key));
-  return Array.from([data])
+  return Array.from([data]) // updated to return an array
 }
 
 // save data to local storage
