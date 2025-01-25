@@ -27,19 +27,16 @@ export function setClick(selector, callback) {
 // URL parameter search
 export function getParam(param) {
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get("product");
+  // const queryString = window.location.search;
+  // const urlParams = new URLSearchParams(queryString);
+  // const product = urlParams.get('product');
+  window.addEventListener('DOMContentLoaded', () => {
+    // Extract filmId from the URL query string
+    const params = new URLSearchParams(window.location.search);
+    console.log(params.get('product'));
+  });
 
-  return param;
+
 }
 
-
-
-// // URL parameter search
-// export function getParam(param) {
-//   const queryString = window.location.search; // Get the query string
-//   const urlParams = new URLSearchParams(queryString); // Parse the query string
-//   return urlParams.get(param); // Return the value of the specified parameter
-// }
 
