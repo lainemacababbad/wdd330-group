@@ -16,6 +16,6 @@ document
   .addEventListener("click", addToCartHandler);
 
 //
-const productId = getParam('products');
+const productId = getParam('product');
 
-console.log(findProductById(productId));
+console.log(productId);

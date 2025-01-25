@@ -34,3 +34,12 @@ export function getParam(param) {
   return param;
 }
 
+
+
+// // URL parameter search
+// export function getParam(param) {
+//   const queryString = window.location.search; // Get the query string
+//   const urlParams = new URLSearchParams(queryString); // Parse the query string
+//   return urlParams.get(param); // Return the value of the specified parameter
+// }
+
