@@ -220,3 +220,19 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+.item-count {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  background-color: tan;
+  width: 15px;
+  height: 15px;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: small;
+}

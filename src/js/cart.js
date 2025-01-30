@@ -2,8 +2,25 @@ import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  if (window.location.pathname.includes("cart")) {
+    // Only render cart contents if we are on the cart page (or another page dedicated to showing cart items)
+    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  }
+}
+
+function itemCount() {
+  const cartItems = getLocalStorage("so-cart");
+  const itemCountElement = document.querySelector(".item-count");
+
+  if (itemCountElement) {
+    if (cartItems.length > 0) {
+      itemCountElement.textContent = cartItems.length;
+      itemCountElement.style.display = 'inline';  // Show item count
+    } else {
+      itemCountElement.style.display = 'none';  // Hide item count if cart is empty
+    }
+  }
 }
 
 function cartItemTemplate(item) {
@@ -26,3 +43,4 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
+itemCount();
