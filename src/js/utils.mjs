@@ -31,11 +31,9 @@ export function getParam(param) {
   // const queryString = window.location.search;
   // const urlParams = new URLSearchParams(queryString);
   // const product = urlParams.get('product');
-  window.addEventListener('DOMContentLoaded', () => {
     // Extract filmId from the URL query string
     const params = new URLSearchParams(window.location.search);
-    console.log(params.get('product'));
-  });
+    return params.get(param);
 }
 
 // Getting the total of the cart
