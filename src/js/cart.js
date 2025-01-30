@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, getCartTotal } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
@@ -41,6 +41,14 @@ function cartItemTemplate(item) {
 
   return newItem;
 }
+
+// Total in cart
+document.addEventListener("DOMContentLoaded", () => {
+  const cartTotal = getCartTotal();
+  console.log('Cart Total:', cartTotal);
+  document.querySelector(".cart-total").textContent = `Total: $${cartTotal.toFixed(2)}`;
+});
+
 
 renderCartContents();
 itemCount();
