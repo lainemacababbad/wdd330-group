@@ -1,10 +1,10 @@
-import { getParam } from "./utils.mjs";
+import { setLocalStorage, getParam } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 import productDetails from "./productDetails.mjs";
 
-// function addProductToCart(product) {
-//   setLocalStorage("so-cart", product);
-// }
+function addProductToCart(product) {
+  setLocalStorage("so-cart", [product]); // i put the brackets to ensure that it is showing the product on the cart
+}
 
 // add to cart button event handler
 async function addToCartHandler(e) {
@@ -18,7 +18,7 @@ document
   .addEventListener("click", addToCartHandler);
 
 //
-const productId = getParam('product');
+const productId = getParam("product");
 productDetails(productId, ".product-detail");
 
 console.log(productId);

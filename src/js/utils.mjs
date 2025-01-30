@@ -7,8 +7,9 @@ export function qs(selector, parent = document) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  const data = JSON.parse(localStorage.getItem(key));
-  return Array.from([data]); // updated to return an array
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : []; // updated to return an array
+  // update: even if no data exists, it still returns an array
 }
 
 // save data to local storage
@@ -35,8 +36,17 @@ export function getParam(param) {
     const params = new URLSearchParams(window.location.search);
     console.log(params.get('product'));
   });
-
-
 }
 
-
+// Getting the total of the cart
+export function getCartTotal() {
+  const cart = JSON.parse(localStorage.getItem('so-cart')) || [];
+  console.log(cart)
+  let total = 0;
+  
+  cart.forEach(item => {
+    total += item.FinalPrice;
+  });
+  
+  return total;
+}
