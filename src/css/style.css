@@ -230,7 +230,7 @@ footer {
   background-color: tan;
   width: 15px;
   height: 15px;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   color: black;
