@@ -9,9 +9,12 @@ let {category} = $props();
 let promise = getData(category);
 </script>
 
-<h2>Top products: {category}</h2>
+<h2>Top Products: {category}</h2>
+{#await promise}
+  Loading
+{:then products}
 <ul class="product-list">
-
+{#each products as product}
 <li class="product-card">
     <a href="product_pages/index.html?product=880RR">
         <img
@@ -20,9 +23,7 @@ let promise = getData(category);
         <h3 class="card__brand">Marmot</h3>
         <h2 class="card__name">Ajax Tent - 3-Person, 3-Season</h2>
         <p class="product-card__price">$199.99</p></a>
-    
     </li>
-    
-    
-    
-</ul>
+{/each}
+</ul> 
+{/await} 
