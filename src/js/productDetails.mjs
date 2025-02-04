@@ -1,5 +1,5 @@
 import { findProductById } from "./productData.mjs";
-import { setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default async function productDetails(productId, selector) {
 // Take product_id retrieve product data
@@ -10,8 +10,19 @@ export default async function productDetails(productId, selector) {
   document.getElementById("addToCart").addEventListener("click", addProductToCart);
 } 
 
-export function addProductToCart(product) {
-  setLocalStorage("so-cart", product);
+// export function addProductToCart(product) {
+//   setLocalStorage("so-cart", product);
+// }
+
+export async function addProductToCart(event) {
+  const productId = event.target.dataset.id; // this is for the button so that it adds the item to cart
+  const product = await findProductById(productId);
+
+  let cart = getLocalStorage("so-cart") || [];
+
+  cart.push(product); // this add another product to cart, instead of it replacing the item added
+  // it add the new product as the last item
+  setLocalStorage("so-cart", cart);
 }
 
 // this will insert the product specifics into a string of markup.
