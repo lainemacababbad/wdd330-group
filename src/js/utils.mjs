@@ -31,22 +31,24 @@ export function getParam(param) {
   // const queryString = window.location.search;
   // const urlParams = new URLSearchParams(queryString);
   // const product = urlParams.get('product');
-  window.addEventListener('DOMContentLoaded', () => {
     // Extract filmId from the URL query string
     const params = new URLSearchParams(window.location.search);
-    console.log(params.get('product'));
-  });
+    return params.get(param);
 }
 
 // Getting the total of the cart
 export function getCartTotal() {
-  const cart = JSON.parse(localStorage.getItem('so-cart')) || [];
-  console.log(cart)
+  const cart = JSON.parse(localStorage.getItem("so-cart")) || [];
+
   let total = 0;
-  
-  cart.forEach(item => {
+  cart.forEach((item) => {
     total += item.FinalPrice;
   });
-  
+
   return total;
 }
+// export function getCartTotal() {
+//   const cart = getLocalStorage("so-cart");
+
+//   return cart.reduce((total, item) => total + item.FinalPrice, 0);
+// }

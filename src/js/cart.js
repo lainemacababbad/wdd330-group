@@ -43,12 +43,15 @@ function cartItemTemplate(item) {
 }
 
 // Total in cart
-document.addEventListener("DOMContentLoaded", () => {
+function updateCartTotal() {
   const cartTotal = getCartTotal();
-  console.log('Cart Total:', cartTotal);
-  document.querySelector(".cart-total").textContent = `Total: $${cartTotal.toFixed(2)}`;
-});
 
+  const cartTotalElement = document.querySelector(".cart-total");
+  if (cartTotalElement) {
+    cartTotalElement.textContent = `Total: $${cartTotal.toFixed(2)}`;
+  }
+}
 
 renderCartContents();
 itemCount();
+updateCartTotal();
