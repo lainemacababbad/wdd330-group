@@ -1,3 +1,7 @@
+import MainHeader from "./components/MainHeader.svelte";
+import MainFooter from "./components/MainFooter.svelte";
+import { mount } from "svelte";
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -52,3 +56,17 @@ export function getCartTotal() {
 
 //   return cart.reduce((total, item) => total + item.FinalPrice, 0);
 // }
+
+// export function renderHeaderFooter () {
+//   new MainFooter({
+//     target : document.getElementById('main-footer')
+//   });
+//   new MainHeader({
+//     target : document.getElementById('main-header')
+//   });
+// }
+
+export function renderHeaderFooter() {
+  mount(MainHeader, { target: document.querySelector("#main-header") });
+  mount(MainFooter, { target: document.querySelector("#main-footer") });
+}
