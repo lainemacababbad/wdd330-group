@@ -244,3 +244,17 @@ footer {
   color: black;
   font-size: small;
 }
+
+body > main > section > ul > li
+{
+  position: relative;
+}
+
+#remove-button {
+  color: red;
+  background-color: transparent;
+  position: absolute;
+  top: 20
+  px;
+  right: 1px
+}
