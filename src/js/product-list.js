@@ -1,5 +1,5 @@
+// product-list.js
 console.log("product-list.js loaded");
-
 
 import { mount } from "svelte";
 import ProductList from "./components/ProductList.svelte";
@@ -12,7 +12,13 @@ const category = getParam("category") || "tents";  // Default to "tents" if no c
 console.log("Category from URL:", category);
 
 // Mount the ProductList component and pass the category as a prop
-const productList = mount(ProductList, {
-  target: document.querySelector(".products"),
-  props: { category: category },  // Pass the category dynamically
-});
+const productListContainer = document.querySelector(".products");
+
+if (!productListContainer.hasChildNodes()) {
+  const productList = mount(ProductList, {
+    target: productListContainer,
+    props: { category: category },
+  });
+} else {
+  console.log("Product list already rendered, skipping mount.");
+}
