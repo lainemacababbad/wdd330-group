@@ -19,14 +19,9 @@ function convertToJson(res) {
 
 //! team 5 new function
 export async function getData(category) {
-  try {
-    const response = await fetch(baseURL + `products/search/${category}`);
-    const data = await convertToJson(response);
-    return data.Result;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return [];
-  }
+  const response = await fetch(baseURL + `products/search/${category}`);
+  const data = await convertToJson(response);
+  return data.Result;
 }
 
 
@@ -36,7 +31,7 @@ export async function getData(category) {
 // }
 
 export async function findProductById(id, category = "tents") {
-  const response = await fetch(`baseURL + product/${id}`);
+  const response = await fetch(`${baseURL}/product/${id}`);
   if (!response.ok) {
     throw new Error('Product not found');
   }
