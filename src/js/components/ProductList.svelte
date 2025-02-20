@@ -2,7 +2,7 @@
   import { getData } from "../productData.mjs";
   import ProductSummary from "./ProductSummary.svelte";
 
-  export let category = "tents";
+  export let category;
 
   let promise = getData(category);
 

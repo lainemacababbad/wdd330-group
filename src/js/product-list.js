@@ -1,4 +1,4 @@
-// product-list.js
+//product-list.js
 console.log("product-list.js loaded");
 
 import { mount } from "svelte";
@@ -14,7 +14,7 @@ console.log("Category from URL:", category);
 // Mount the ProductList component and pass the category as a prop
 const productListContainer = document.querySelector(".products");
 
-if (!productListContainer.hasChildNodes()) {
+if (productListContainer.hasChildNodes()) {
   const productList = mount(ProductList, {
     target: productListContainer,
     props: { category: category },

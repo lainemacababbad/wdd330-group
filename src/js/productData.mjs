@@ -10,7 +10,7 @@ function convertToJson(res) {
 }
 
 
-//! old function
+// ! old function
 // export function getData(category) {
 //   return fetch(`../json/${category}.json`)
 //     .then(convertToJson)
