@@ -11,6 +11,9 @@ and apply the background and foreground colors to it specified in the alert */
 export async function renderAlerts() {
   const alertsData = await alerts();
 
+  // filter
+  const filteredAlerts = alertsData.filter(alert => alert.message.includes("Success"));
+
   // searches for alert-list if not there, it creates that element
   let alertList = document.querySelector(".alert-list");
   if (!alertList) {
@@ -24,10 +27,11 @@ export async function renderAlerts() {
     }
   }
 
-//   alertList.innerHTML = "";
+  // clear any previous alerts if needed
+  alertList.innerHTML = "";
 
   // for each alert, it creates a p element and applies anything based on the JSON file
-  alertsData.forEach((alert) => {
+  filteredAlerts.forEach((alert) => {
     const alertParagraph = document.createElement("p");
     alertParagraph.textContent = alert.message;
     alertParagraph.style.backgroundColor = alert.background;
