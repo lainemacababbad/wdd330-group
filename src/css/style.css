@@ -208,6 +208,35 @@ button {
   display: none;
 } */
 
+#product-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 50px;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+#product-list-container a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out, background 0.3s;
+}
+
+#product-list-container a:hover {
+  background: #e0e0e0;
+  transform: scale(1.1);
+}
+
+#product-list-container img {
+  width: 160px;
+  height: 160px;
+}
+
 
 
 @media screen and (min-width: 500px) {
