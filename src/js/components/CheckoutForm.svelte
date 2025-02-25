@@ -34,7 +34,7 @@
   onMount(init);
 </script>
 
-<form class="checkout-form">
+<form id="checkout-form">
   <fieldset>
     <legend>Shipping</legend>
     <label for="fname">First Name:</label>
@@ -72,4 +72,6 @@
     <label for="total">Order Total:</label>
     <input type="text" id="total" name="total" readonly />
   </fieldset>
+
+  <button>Submit</button>
 </form>
