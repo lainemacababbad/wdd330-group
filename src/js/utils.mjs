@@ -31,12 +31,13 @@ export function setClick(selector, callback) {
 
 // URL parameter search
 export function getParam(param) {
+
   // const queryString = window.location.search;
   // const urlParams = new URLSearchParams(queryString);
   // const product = urlParams.get('product');
-  // Extract filmId from the URL query string
-  const params = new URLSearchParams(window.location.search);
-  return params.get(param);
+    // Extract filmId from the URL query string
+    const params = new URLSearchParams(window.location.search);
+    return params.get(param);
 }
 
 // Getting the total of the cart
