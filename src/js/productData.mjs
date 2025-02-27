@@ -24,7 +24,7 @@ export async function findProductById(id, category = "tents") { // this is just 
 //   if (res.ok) {
 //     return res.json();
 //   } else {
-//     throw new Error("Bad Response");
+//     throw new Error("Bad Response");cl
 //   }
 // }
 
