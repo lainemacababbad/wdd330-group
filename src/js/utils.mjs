@@ -1,5 +1,6 @@
 import MainHeader from "./components/MainHeader.svelte";
 import MainFooter from "./components/MainFooter.svelte";
+import CheckoutForm from "./components/CheckoutForm.svelte";
 import { mount } from "svelte";
 
 // wrapper for querySelector...returns matching element
@@ -51,22 +52,12 @@ export function getCartTotal() {
 
   return total;
 }
-// export function getCartTotal() {
-//   const cart = getLocalStorage("so-cart");
-
-//   return cart.reduce((total, item) => total + item.FinalPrice, 0);
-// }
-
-// export function renderHeaderFooter () {
-//   new MainFooter({
-//     target : document.getElementById('main-footer')
-//   });
-//   new MainHeader({
-//     target : document.getElementById('main-header')
-//   });
-// }
 
 export function renderHeaderFooter() {
   mount(MainHeader, { target: document.querySelector("#main-header") });
   mount(MainFooter, { target: document.querySelector("#main-footer") });
+}
+
+export function renderCheckoutForm() {
+  mount(CheckoutForm, { target: document.querySelector("#checkout-form") });
 }
