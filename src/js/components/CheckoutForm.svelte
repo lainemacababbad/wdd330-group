@@ -122,7 +122,7 @@
     <p id="orderTotal">${orderTotal}</p>
   </fieldset>
 
-  <button type="submit">Submit</button>
+  <button id="checkoutSubmit" type="submit">Checkout</button>
 </form>
 
 <style>
