@@ -3,23 +3,30 @@
   import { onMount } from "svelte";
   import { checkout } from "../externalServices.mjs";
 
+  export let key = "";
 
-  let { key = "" } = $props();
-
-  let list = $state([]);
-  let itemTotal = $state(0);
-  let shipping = $state(0);
-  let tax = $state(0);
-  let orderTotal = $state(0);
+  // state vars
+  let list = [];
+  let itemTotal = 0;
+  let shipping = 0;
+  let tax = 0;
+  let orderTotal = 0;
 
   const init = function () {
     list = getLocalStorage(key) || [];
     calculateItemSummary();
   };
 
+  // const calculateItemSummary = function () {
+  //   itemTotal = list.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  //   document.getElementById("subtotal").value = itemTotal.toFixed(2);
+  // };
+
+  // calculate order subtotal from the cart items
   const calculateItemSummary = function () {
-    itemTotal = list.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    document.getElementById("subtotal").value = itemTotal.toFixed(2);
+    // calculate the total of all the items in the cart
+    const amounts = list.map((item) => item.FinalPrice);
+    itemTotal = amounts.reduce((sum, item) => sum + item);
   };
 
   const calculateOrderTotal = function () {
@@ -70,39 +77,49 @@
   <fieldset>
     <legend>Shipping</legend>
     <label for="fname">First Name:</label>
-    <input type="text" id="fname" name="fname" required/>
+    <input type="text" id="fname" name="fname" required />
     <label for="lname">Last Name:</label>
-    <input type="text" id="lname" name="lname" required/>
+    <input type="text" id="lname" name="lname" required />
     <label for="street">Street:</label>
-    <input type="text" id="street" name="street" required/>
+    <input type="text" id="street" name="street" required />
     <label for="city">City:</label>
-    <input type="text" id="city" name="city" required/>
+    <input type="text" id="city" name="city" required />
     <label for="state">State:</label>
-    <input type="text" id="state" name="state" required/>
+    <input type="text" id="state" name="state" required />
     <label for="zip">Zip:</label>
-    <input type="text" id="zip" name="zip" oninput={calculateOrderTotal} required/>
+    <input
+      type="text"
+      id="zip"
+      name="zip"
+      onblur={calculateOrderTotal}
+      required
+    />
   </fieldset>
 
   <fieldset>
     <legend>Payment</legend>
     <label for="cardNumber">Card number:</label>
-    <input type="text" id="cardNumber" name="cardNumber" required/>
+    <input type="text" id="cardNumber" name="cardNumber" required />
     <label for="expiration">Expiration date:</label>
-    <input type="text" id="expiration" name="expiration" required/>
+    <input type="text" id="expiration" name="expiration" required />
     <label for="code">Security Code:</label>
-    <input type="text" id="code" name="code" required/>
+    <input type="text" id="code" name="code" required />
   </fieldset>
 
   <fieldset>
     <legend>Order Summary</legend>
-    <label for="subtotal">Item Subtotal:</label>
-    <input type="text" id="subtotal" name="subtotal" readonly />
+
+    <label for="itemTotal">Item Subtotal:</label>
+    <p name="itemTotal" id="itemTotal">${itemTotal}</p>
+
     <label for="shipping">Shipping Estimate:</label>
-    <input type="text" id="shipping" name="shipping" readonly />
+    <p id="shipping">${shipping}</p>
+
     <label for="tax">Tax:</label>
-    <input type="text" id="tax" name="tax" readonly />
-    <label for="total">Order Total:</label>
-    <input type="text" id="total" name="total" readonly />
+    <p id="tax">${tax}</p>
+
+    <label for="orderTotal">Order Total:</label>
+    <p id="orderTotal">${orderTotal}</p>
   </fieldset>
 
   <button type="submit">Submit</button>
