@@ -27,6 +27,13 @@ export async function addProductToCart(event) {
 
 // this will insert the product specifics into a string of markup.
 export function productDetailsTemplate(product) {
+  const discountAmount = product.SuggestedRetailPrice - product.FinalPrice;
+  const discountPercentage = ((discountAmount / product.SuggestedRetailPrice) * 100).toFixed(0);
+
+  const discountHTML = discountAmount > 0 
+    ? `<p class="product-card__discount">You save $${discountAmount.toFixed(2)} (${discountPercentage}% Off)</p>` 
+    : "";
+
   return `<h3>${product.Brand.Name}</h3>
   <h2 class="divider">${product.NameWithoutBrand}</h2>
   <img
@@ -35,6 +42,7 @@ export function productDetailsTemplate(product) {
     alt="${product.Name}"
   />
   <p class="product-card__price">$${product.FinalPrice}</p>
+  ${discountHTML}
   <p class="product__color">${product.Colors[0].ColorName}</p>
   <p class="product__description">
   ${product.DescriptionHtmlSimple}
