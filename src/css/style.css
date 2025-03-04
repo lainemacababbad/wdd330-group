@@ -246,6 +246,10 @@ button {
   transform: scale(1.2);
 }
 
+/* for the discount */
+.product-card__discount {
+  color: red;
+}
 
 
 
