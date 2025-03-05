@@ -1,9 +1,9 @@
 <script>
-  import { getLocalStorage } from "../utils.mjs";
+  import { getLocalStorage, getCartTotal } from "../utils.mjs";
   import { onMount } from "svelte";
   import { checkout } from "../externalServices.mjs";
 
-  export let key = "";
+  export let key = "so-cart";
 
   // state vars
   let list = [];
@@ -15,14 +15,10 @@
   const init = function () {
     list = getLocalStorage(key) || [];
     calculateItemSummary();
+    calculateOrderTotal();
   };
 
-  // const calculateItemSummary = function () {
-  //   itemTotal = list.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  //   document.getElementById("subtotal").value = itemTotal.toFixed(2);
-  // };
-
-  // calculate order subtotal from the cart items
+  // calculate the total of all the items in the cart
   const calculateItemSummary = function () {
     // calculate the total of all the items in the cart
     const amounts = list.map((item) => item.FinalPrice);
@@ -35,9 +31,9 @@
     tax = itemTotal * 0.06;
     orderTotal = itemTotal + shipping + tax;
 
-    document.getElementById("shipping").value = shipping.toFixed(2);
-    document.getElementById("tax").value = tax.toFixed(2);
-    document.getElementById("total").value = orderTotal.toFixed(2);
+    // document.getElementById("shipping").textContent = `$${shipping.toFixed(2)}`;
+    // document.getElementById("tax").textContent = `$${tax.toFixed(2)}`;
+    // document.getElementById("orderTotal").textContent = `$${orderTotal.toFixed(2)}`;
   };
 
   // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
@@ -54,10 +50,11 @@
     return simplifiedItems;
   };
   const handleSubmit = async function (e) {
+    e.preventDefault();
     const json = formDataToJSON(this);
     // add totals, and item details
     json.orderDate = new Date();
-    json.orderTotal = total;
+    json.orderTotal = orderTotal;
     json.tax = tax;
     json.shipping = shipping;
     json.items = packageItems(list);
@@ -70,7 +67,7 @@
     }
   };
 
-  onMount(init);
+  onMount(init);  // Initialize on component mount
 </script>
 
 <form id="checkout-form" onsubmit={handleSubmit}>
@@ -99,31 +96,32 @@
   <fieldset>
     <legend>Payment</legend>
     <label for="cardNumber">Card number:</label>
-    <input type="text" id="cardNumber" name="cardNumber" required />
+    <input type="text" id="cardNumber" name="cardNumber" placeholder="1234123412341234" required />
     <label for="expiration">Expiration date:</label>
     <input type="text" id="expiration" name="expiration" required />
     <label for="code">Security Code:</label>
-    <input type="text" id="code" name="code" required />
+    <input type="text" id="code" name="code" placeholder="123" required />
   </fieldset>
 
   <fieldset>
     <legend>Order Summary</legend>
 
     <label for="itemTotal">Item Subtotal:</label>
-    <p name="itemTotal" id="itemTotal">${itemTotal}</p>
+    <p id="itemTotal">${itemTotal.toFixed(2)}</p>
 
     <label for="shipping">Shipping Estimate:</label>
-    <p id="shipping">${shipping}</p>
+    <p id="shipping">${shipping.toFixed(2)}</p>
 
     <label for="tax">Tax:</label>
-    <p id="tax">${tax}</p>
+    <p id="tax">${tax.toFixed(2)}</p>
 
     <label for="orderTotal">Order Total:</label>
-    <p id="orderTotal">${orderTotal}</p>
+    <p id="orderTotal">${orderTotal.toFixed(2)}</p>
   </fieldset>
 
   <button id="checkoutSubmit" type="submit">Checkout</button>
 </form>
+
 
 <style>
   form {
