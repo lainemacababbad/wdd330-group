@@ -2,6 +2,7 @@
   import { getLocalStorage } from "../utils.mjs";
   import { onMount } from "svelte";
   import { checkout } from "../externalServices.mjs";
+  import { alertMessage } from "../utils.mjs";
 
   export let key = "";
 
@@ -53,22 +54,43 @@
     });
     return simplifiedItems;
   };
+  
   const handleSubmit = async function (e) {
-    const json = formDataToJSON(this);
-    // add totals, and item details
+  e.preventDefault();
+
+  // Access the form and check its validity
+  var myForm = document.forms[0];
+  var chk_status = myForm.checkValidity();
+  myForm.reportValidity();
+
+  // Only proceed if the form is valid
+  if (chk_status) {
+    // Convert form data to JSON
+    const json = formDataToJSON(myForm);
+
+    // Add order details to the JSON object
     json.orderDate = new Date();
-    json.orderTotal = total;
+    json.orderTotal = orderTotal;
     json.tax = tax;
     json.shipping = shipping;
     json.items = packageItems(list);
+
     console.log(json);
+
     try {
+      // Attempt to submit the order
       const res = await checkout(json);
       console.log(res);
+
+      // Optionally, display a success message to the user
+      alertMessage("Order submitted successfully!", "success");
     } catch (err) {
-      console.log(err);
+      // Handle errors (e.g., display an error message to the user)
+      console.error(err);
+      alertMessage("Failed to submit the order. Please try again.", "error");
     }
-  };
+  }
+};
 
   onMount(init);
 </script>
@@ -81,7 +103,7 @@
     <label for="lname">Last Name:</label>
     <input type="text" id="lname" name="lname" required />
     <label for="street">Street:</label>
-    <input type="text" id="street" name="street" required />
+    <input type="text" id="street" name="street" required pattern="[0-9]{5}"/>
     <label for="city">City:</label>
     <input type="text" id="city" name="city" required />
     <label for="state">State:</label>
@@ -91,19 +113,19 @@
       type="text"
       id="zip"
       name="zip"
-      onblur={calculateOrderTotal}
       required
+      title="5-digit ZIP code"
     />
   </fieldset>
 
   <fieldset>
     <legend>Payment</legend>
     <label for="cardNumber">Card number:</label>
-    <input type="text" id="cardNumber" name="cardNumber" required />
+    <input type="text" id="cardNumber" name="cardNumber" required pattern="\d{16}"/>
     <label for="expiration">Expiration date:</label>
     <input type="text" id="expiration" name="expiration" required />
     <label for="code">Security Code:</label>
-    <input type="text" id="code" name="code" required />
+    <input type="text" id="code" name="code" required pattern="\d{3}"/>
   </fieldset>
 
   <fieldset>
