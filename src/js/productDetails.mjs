@@ -21,8 +21,15 @@ export async function addProductToCart(event) {
 
   let cart = getLocalStorage("so-cart") || [];
 
-  cart.push(product); // this add another product to cart, instead of it replacing the item added
-  // it add the new product as the last item
+  // Check if the product is already in the cart
+  const existingProduct = cart.find((item) => item.Id === product.Id);
+  if (existingProduct) {
+    existingProduct.quantity = existingProduct.quantity + 1;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
+  }
+
   setLocalStorage("so-cart", cart);
 }
 
