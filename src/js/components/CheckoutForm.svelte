@@ -1,5 +1,5 @@
 <script>
-  import { getLocalStorage, getCartTotal } from "../utils.mjs";
+  import { getLocalStorage } from "../utils.mjs";
   import { onMount } from "svelte";
   import { checkout } from "../externalServices.mjs";
 
@@ -60,10 +60,16 @@
     json.items = packageItems(list);
     console.log(json);
     try {
+      // Attempt to submit the order
       const res = await checkout(json);
       console.log(res);
+
+      // Optionally, display a success message to the user
+      alertMessage("Order submitted successfully!", "success");
     } catch (err) {
-      console.log(err);
+      // Handle errors (e.g., display an error message to the user)
+      console.error(err);
+      alertMessage("Failed to submit the order. Please try again.", "error");
     }
   };
 
@@ -78,7 +84,7 @@
     <label for="lname">Last Name:</label>
     <input type="text" id="lname" name="lname" required />
     <label for="street">Street:</label>
-    <input type="text" id="street" name="street" required />
+    <input type="text" id="street" name="street" required/>
     <label for="city">City:</label>
     <input type="text" id="city" name="city" required />
     <label for="state">State:</label>
@@ -88,19 +94,20 @@
       type="text"
       id="zip"
       name="zip"
-      onblur={calculateOrderTotal}
       required
+      title="5-digit ZIP code"
+      pattern="[0-9]{5}"
     />
   </fieldset>
 
   <fieldset>
     <legend>Payment</legend>
     <label for="cardNumber">Card number:</label>
-    <input type="text" id="cardNumber" name="cardNumber" placeholder="1234123412341234" required />
+    <input type="text" id="cardNumber" name="cardNumber" required pattern="\d{16}"/>
     <label for="expiration">Expiration date:</label>
     <input type="text" id="expiration" name="expiration" required />
     <label for="code">Security Code:</label>
-    <input type="text" id="code" name="code" placeholder="123" required />
+    <input type="text" id="code" name="code" required pattern="\d{3}"/>
   </fieldset>
 
   <fieldset>
@@ -118,7 +125,7 @@
     <label for="orderTotal">Order Total:</label>
     <p id="orderTotal">${orderTotal.toFixed(2)}</p>
   </fieldset>
-
+  
   <button id="checkoutSubmit" type="submit">Checkout</button>
 </form>
 
