@@ -301,3 +301,25 @@ body > main > section > ul > li
   px;
   right: 1px
 }
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  /* height: 200px; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25%;
+  border: black solid 1px;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  background-color: #d2d4d2;
+}
+
+label {
+  margin-top: 25px;
+}
+
+#pass {
+  margin-bottom: 25px;
+}
